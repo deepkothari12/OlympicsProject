@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Country Data</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        .form-container {
+            margin: 50px auto;
+            max-width: 500px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .form-container button:hover {
+            background: #ff6347;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .data-section {
+            margin: 40px auto;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .data-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            margin: 20px auto;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Olympic Country Statistics</h1>
+    </header>
+
+    <div class="form-container">
+        <h2>Enter a Country Name</h2>
+        <form id="countryForm">
+            <input type="text" id="countryInput" placeholder="Enter country name...">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="data-section" id="dataSection">
+        <h2>Statistics for <span id="countryName"></span></h2>
+        <div class="chart-container">
+            {%if plot_url%}
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Dynamic Matplotlib Plot">
+            {%endif%}
+        </div>
+        <div class="dataset-container">
+            <p id="countryData">Sample data will be displayed here based on the input.</p>
+            
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('countryForm');
+        const dataSection = document.getElementById('dataSection');
+        const countryName = document.getElementById('countryName');
+        const countryData = document.getElementById('countryData');
+        const countryGraph = document.getElementById('countryGraph');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const countryInput = document.getElementById('countryInput').value;
+
+            if (countryInput.trim() === '') {
+                alert('Please enter a country name.');
+                return;
+            }
+
+            // Simulate fetching data for the country
+            countryName.textContent = countryInput;
+            countryData.textContent = `Here is some placeholder data for ${countryInput}. This can include medal counts, participation stats, etc.`;
+            countryGraph.src = `https://via.placeholder.com/600x400?text=Graph+for+${encodeURIComponent(countryInput)}`;
+
+            // Show the data section
+            dataSection.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
