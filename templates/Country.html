@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            background: linear-gradient(to bottom, #9ACBD0, #F2EFE7);
             color: white;
             text-align: center;
         }
@@ -28,7 +29,7 @@
         .form-container {
             margin: 50px auto;
             max-width: 500px;
-            text-align: center;
+            text-align :center;
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
@@ -76,18 +77,19 @@
             margin-bottom: 20px;
         }
 
-        .chart-container {
-            margin: 20px auto;
-        }
-
-        .chart-container img {
+        .chart-container img  {
             max-width: 100%;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            margin-right: 85px;
         }
+
+        
     </style>
 </head>
+
 <body>
     <header>
         <h1>Olympic Country Statistics</h1>
@@ -95,50 +97,27 @@
 
     <div class="form-container">
         <h2>Enter a Country Name</h2>
-        <form id="countryForm">
-            <input type="text" id="countryInput" placeholder="Enter country name...">
+        
+        <form action="/country_details" id="countryForm" method="post">
+            <input type="text" name="countryInput" placeholder="Enter country name...">
             <button type="submit">Submit</button>
         </form>
     </div>
 
-    <div class="data-section" id="dataSection">
-        <h2>Statistics for <span id="countryName"></span></h2>
-        <div class="chart-container">
-            {%if plot_url%}
-                <img src="data:image/png;base64,{{ plot_url }}" alt="Dynamic Matplotlib Plot">
-            {%endif%}
-        </div>
-        <div class="dataset-container">
-            <p id="countryData">Sample data will be displayed here based on the input.</p>
-            
+    <div class="Chart_container">
+        <h2>Generated Graph: {{Country_name}}</h2>
+        <div class="chart-container" , style="text-align: left;  margin-left: 35px;">
+            {% if graph %}
+               <img src="{{ graph }}" alt="Generated Graph">
+            {% endif %}
+            {% if kde_age %}
+               <img src="{{ kde_age }}" alt="Generated Graph">
+            {% endif %}
         </div>
 
+        
     </div>
 
-    <script>
-        const form = document.getElementById('countryForm');
-        const dataSection = document.getElementById('dataSection');
-        const countryName = document.getElementById('countryName');
-        const countryData = document.getElementById('countryData');
-        const countryGraph = document.getElementById('countryGraph');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const countryInput = document.getElementById('countryInput').value;
-
-            if (countryInput.trim() === '') {
-                alert('Please enter a country name.');
-                return;
-            }
-
-            // Simulate fetching data for the country
-            countryName.textContent = countryInput;
-            countryData.textContent = `Here is some placeholder data for ${countryInput}. This can include medal counts, participation stats, etc.`;
-            countryGraph.src = `https://via.placeholder.com/600x400?text=Graph+for+${encodeURIComponent(countryInput)}`;
-
-            // Show the data section
-            dataSection.style.display = 'block';
-        });
-    </script>
 </body>
+
 </html>

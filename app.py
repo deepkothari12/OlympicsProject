@@ -1,14 +1,10 @@
-from flask import Flask , render_template , request , Response
+from   flask import Flask, render_template, request, Response, url_for, send_file
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FgCanvas
+from   matplotlib.backends.backend_agg import FigureCanvasAgg as FgCanvas
 import seaborn as sns
-import io
-import base64
-
-fig , ax = plt.subplots(figsize= (6,6))
-
+import graphs
 
 app = Flask(__name__)
 
@@ -16,28 +12,27 @@ app = Flask(__name__)
 def intro_page():
     return render_template("intro.html")
 
-@app.route("/Country_analysis")
-def index():
-    # Generate the Matplotlib plot
-    fig, ax = plt.subplots(figsize=(6, 4))
-    ax.plot([1, 2, 3, 4, 5], [10, 20, 25, 30, 35], marker="o", label="Line Plot")
-    ax.set_title("Dynamic Matplotlib Plot")
-    ax.set_xlabel("X-axis")
-    ax.set_ylabel("Y-axis")
-    ax.legend()
-    ax.grid(True)
+@app.route("/Country_analysis" ,  methods = ['GET' , 'POST'])
+def Country_index():
+    print("Country Analysis")
+    return render_template("Country.html")
 
-    # Render the plot to an in-memory buffer
-    buf = io.BytesIO()
-    fig.savefig(buf, format="png")
-    buf.seek(0)
-    plt.close(fig)  # Close the figure to free memory
+@app.route("/country_details"  ,  methods = ['GET' , 'POST'])
+def country_details_function_sex_count():
+    if request.method == 'POST':
 
-    # Encode the buffer contents as a Base64 string
-    plot_url = base64.b64encode(buf.getvalue()).decode("utf8")
+        Country_name = request.form.get("countryInput")
+        #print("Country" , Country_name)
+        data = graphs.Country_details(Country_name = Country_name)
+        #print("Data --> " , data.head(2))
+        graph_url = graphs.graphs_plot_sex(data = data)
+         ##age Distribution
+        age_kde_plot = graphs.kde_plot_age(data = data)
 
-    # Pass the Base64 string to the HTML template
-    return render_template("Country.html", plot_url=plot_url)
+
+    return render_template("Country.html", graph = graph_url , Country_name = Country_name , kde_age = age_kde_plot )
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
