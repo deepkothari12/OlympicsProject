@@ -58,7 +58,7 @@
         }
 
         .form-container button:hover {
-            background: #ff6347;
+            background: #000000;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
         }
 
@@ -83,7 +83,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
-            margin-right: 85px;
+            margin-right: 75px;
         }
 
         
@@ -106,12 +106,18 @@
 
     <div class="Chart_container">
         <h2>Generated Graph: {{Country_name}}</h2>
-        <div class="chart-container" , style="text-align: left;  margin-left: 35px;">
+        <div class="chart-container" , style="text-align: left;  margin-left: 25px;">
             {% if graph %}
                <img src="{{ graph }}" alt="Generated Graph">
             {% endif %}
             {% if kde_age %}
                <img src="{{ kde_age }}" alt="Generated Graph">
+            {% endif %}
+            {% if season_plot %}
+               <img src="{{ season_plot }}" alt="Generated Graph">
+            {% endif %}.
+            {% if pie_chart_sex %}
+               <img src="{{ pie_chart_sex }}" alt="Generated Graph">
             {% endif %}
         </div>
 

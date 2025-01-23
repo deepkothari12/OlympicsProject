@@ -6,6 +6,7 @@ from   matplotlib.backends.backend_agg import FigureCanvasAgg as FgCanvas
 import seaborn as sns
 import graphs
 
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -26,11 +27,19 @@ def country_details_function_sex_count():
         data = graphs.Country_details(Country_name = Country_name)
         #print("Data --> " , data.head(2))
         graph_url = graphs.graphs_plot_sex(data = data)
-         ##age Distribution
+        
+        ##pie Chart Of Sex
+        pie_chart_sex = graphs.pie_char_sex(data=data)
+        
+        ##age Distribution
         age_kde_plot = graphs.kde_plot_age(data = data)
 
+        ##season Grpahss
+        season_plot = graphs.graph_of_season(data = data)
 
-    return render_template("Country.html", graph = graph_url , Country_name = Country_name , kde_age = age_kde_plot )
+
+    return render_template("Country.html", graph = graph_url , Country_name = Country_name , 
+                           kde_age = age_kde_plot, season_plot = season_plot, pie_chart_sex = pie_chart_sex )
 
 
 
