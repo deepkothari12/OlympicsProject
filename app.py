@@ -25,6 +25,8 @@ def country_details_function_sex_count():
         Country_name = request.form.get("countryInput")
         #print("Country" , Country_name)
         data = graphs.Country_details(Country_name = Country_name)
+
+        # dataFrame = graphs.DataFrame_show(data=Country_name)
         #print("Data --> " , data.head(2))
         graph_url = graphs.graphs_plot_sex(data = data)
         
@@ -34,12 +36,15 @@ def country_details_function_sex_count():
         ##age Distribution
         age_kde_plot = graphs.kde_plot_age(data = data)
 
+        ##height_kde_plott
+        height_kde_plot = graphs.kde_plot_height(data = data)
+
         ##season Grpahss
         season_plot = graphs.graph_of_season(data = data)
 
 
-    return render_template("Country.html", graph = graph_url , Country_name = Country_name , 
-                           kde_age = age_kde_plot, season_plot = season_plot, pie_chart_sex = pie_chart_sex )
+    return render_template("Country.html", graph = graph_url , Country_name = Country_name.capitalize() ,  # type: ignore
+                           kde_age = age_kde_plot, season_plot = season_plot, pie_chart_sex = pie_chart_sex , height_kde_plot = height_kde_plot )
 
 
 
