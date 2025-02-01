@@ -46,7 +46,16 @@ def country_details_function_sex_count():
     return render_template("Country.html", graph = graph_url , Country_name = Country_name.capitalize() ,  # type: ignore
                            kde_age = age_kde_plot, season_plot = season_plot, pie_chart_sex = pie_chart_sex , height_kde_plot = height_kde_plot )
 
+@app.route("/season_data" , methods = ['GET' , 'POST'])
+def season_data():
+    #if request.method == "POST":
+    season_data_values = request.form.get("Season_wise_data")
+    Response_from_season_fun = graphs.Season_wise_data(season_data=season_data_values)
+    #print(Response_from_season_fun)
+    print("Yess there is Some Response")
 
+    
+    return render_template("Country.html" , Response_from_season_fun = Response_from_season_fun)
 
 if __name__ == "__main__":
     app.run(debug=True)

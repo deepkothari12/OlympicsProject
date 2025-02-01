@@ -106,6 +106,21 @@ def graph_of_season(data):
         return graph_season
 
 
-
+## Function for the Season buttons
+def Season_wise_data(season_data):
+    seasons_data = df[df['Season'] == season_data]
+    fig, ax = plt.subplots(figsize=(5,5))
+    #data = data['Season'].value_counts()
+    city = seasons_data['City'].value_counts().sort_values(ascending = False).head(5)
+    plt.bar(x = city.index , height = city.values)
+    plt.xlabel("Season")
+    plt.ylabel("Total Matches")
+    canvas = FgCanvas(figure=fig)
+    img_age = io.BytesIO()
+    plt.savefig(img_age , format = 'png' , transparent=True)
+    img_age.seek(0)
+    
+    graph_season_wise = "data:image/png;base64," + base64.b64encode(img_age.getvalue()).decode("utf-8")
+    return graph_season_wise
 
 

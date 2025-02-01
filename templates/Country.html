@@ -6,51 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olympic Country Data</title>
     <link rel="stylesheet" href="static\Country.css">
-    <link  rel="icon" type="image/png" sizes="32x32" href="static/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon.ico">
+
+
+    <script>
+        function resetpageFunction(){
+            location.reload();
+        } 
+    </script>
 </head>
 
 <body>
     <header>
         <h1>Olympic Country Statistics</h1>
+        <button type="reset" onclick="resetpageFunction()" >Reset</button>
     </header>
 
-    
+
     <div class="form-container">
         <h2>Enter a Country Name</h2>
 
         <form action="/country_details" id="countryForm" method="post">
             <input type="text" name="countryInput" placeholder="Enter country name...">
-            <div class="dropdown">
-                <!--Drop Down Of yearrss-->
-                <button class="dropdown-button">Year</button>
-                {% if Year %}
-                <div class="dropdown-content">
-                    <a href="#">{Year}</a>
-                    
-                </div> 
-                {%endif%}
-            </div>
-
             <button type="submit">Submit</button>
         </form>
-       
+
+        <form action="/season_data " id="Season_wise_data"  method="post">
+            <div class="season_data">
+                <button type="submit" class="dropdown-button">Season Wise</button>
+            </div>
+        </form>
+
     </div>
 
-
-    
-
     <div class="Chart_container">
+        {%if Country_name%}
         <h2>COUNTRY: {{Country_name}}</h2>
+        {% endif%}
         <div class="chart-container" , style="text-align: left;  margin-left: 25px;">
-            {% if graph %}
+            {% if graph%}
             <img src="{{ graph }}" alt="Generated Graph">
             {% endif %}
+
             {% if kde_age %}
             <img src="{{ kde_age }}" alt="Generated Graph">
             {% endif %}
+
+
             {% if season_plot %}
             <img src="{{ season_plot }}" alt="Generated Graph">
-            {% endif %}.
+            {% endif %}
+
             {% if pie_chart_sex %}
             <img src="{{ pie_chart_sex }}" alt="Generated Graph">
             {% endif %}
@@ -60,6 +66,16 @@
             {% endif %}
 
         </div>
+
+        <div class="chart-container" , style="text-align: left;  margin-left: 25px;">
+            {%if Response_from_season_fun%}
+            <img src="{{Response_from_season_fun}}" alt="Generated Graph">
+            {% endif %}
+
+        </div>
+
+
+       
 
     </div>
 
