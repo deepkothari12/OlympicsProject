@@ -65,6 +65,20 @@ header h1 {
     transition: background 0.3s, box-shadow 0.3s;
 }
 
+.btn2{
+    display: inline-block;
+    margin: 30px auto;
+    padding: 15px 30px;
+    background: #8686AC;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
 .btn:hover {
     background: #ff6347;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);

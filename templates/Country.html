@@ -7,19 +7,12 @@
     <title>Olympic Country Data</title>
     <link rel="stylesheet" href="static\Country.css">
     <link rel="icon" type="image/png" sizes="32x32" href="static/favicon.ico">
-
-
-    <script>
-        function resetpageFunction(){
-            location.reload();
-        } 
-    </script>
 </head>
 
 <body>
     <header>
         <h1>Olympic Country Statistics</h1>
-        <button type="reset" onclick="resetpageFunction()" >Reset</button>
+        <button type="reset" onclick="resetpageFunction()">Reset</button>
     </header>
 
 
@@ -28,59 +21,80 @@
 
         <form action="/country_details" id="countryForm" method="post">
             <input type="text" name="countryInput" placeholder="Enter country name...">
-            <button type="submit">Submit</button>
-        </form>
+            <button id="button1" type="submit">Submit</button>
 
-        <form action="/season_data " id="Season_wise_data"  method="post">
-            <div class="season_data">
-                <button type="submit" class="dropdown-button">Season Wise</button>
-            </div>
         </form>
-
     </div>
-
-    <div class="Chart_container">
-        {%if Country_name%}
-        <h2>COUNTRY: {{Country_name}}</h2>
-        {% endif%}
-        <div class="chart-container" , style="text-align: left;  margin-left: 25px;">
-            {% if graph%}
+    <div class="All_container">
+        <div class="Chart_container">
+            {%if Country_name%}
+            <h2>COUNTRY: {{Country_name}}</h2>
+            <div class="chart-container" style="text-align: left;  margin-left: 25px;">
+                <!-- {% if graph%}
             <img src="{{ graph }}" alt="Generated Graph">
-            {% endif %}
+            {% endif %} -->
+                <div class="Container_1">
+                    <div class="graph1_container">
+                        <div id="Chart1"></div>
+                    </div>
+                    <div class="graph1_text">
+                        <p>Atoms of radioactive elements can split. According to Albert Einstein, mass and energy are
+                            interchangeable under certain circumstances.
+                            When atoms split, the process is called nuclear fission. In this case, a small amount of
+                            mass is converted into energy.
+                            Thus the energy released cannot do much damage. However, several subatomic particles called
+                            neutrons are also emitted during this process.
+                            Each neutron will hit a radioactive element releasing more neutrons in the process. This
+                            causes a chain reaction and creates a large amount of energy.
+                            This energy is converted into heat which expands uncontrollably causing an explosion. Hence,
+                            atoms do not literally explode.
+                            They generate energy that can cause explosions.</p>
+                    </div>
+                </div>
+                
+                <div id="Chart2"></div>
+                <div id="Chart3"></div>
+                <div id="Chart4"></div>
+                <div id="Chart5"></div>
 
-            {% if kde_age %}
-            <img src="{{ kde_age }}" alt="Generated Graph">
-            {% endif %}
-
-
-            {% if season_plot %}
-            <img src="{{ season_plot }}" alt="Generated Graph">
-            {% endif %}
-
-            {% if pie_chart_sex %}
-            <img src="{{ pie_chart_sex }}" alt="Generated Graph">
-            {% endif %}
-
-            {% if height_kde_plot %}
-            <img src="{{ height_kde_plot }}" alt="Generated Graph">
-            {% endif %}
-
+            </div>
+            {% endif%}
         </div>
-
-        <div class="chart-container" , style="text-align: left;  margin-left: 25px;">
-            {%if Response_from_season_fun%}
-            <img src="{{Response_from_season_fun}}" alt="Generated Graph">
-            {% endif %}
-
-        </div>
-
-
-       
-
     </div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // JSON.parse() is a JavaScript method that converts a JSON string into a JavaScript object.
+        var graph1 = JSON.parse('{{ graph  | safe }}');
+        var graph2 = JSON.parse('{{ pie_chart_sex  | safe }}');
+        var graph3 = JSON.parse('{{ kde_age | safe }}');
+        var graph4 = JSON.parse('{{ season_plot | safe }}');
+        var graph5 = JSON.parse('{{ height_kde_plot | safe }}');
+        // Plot the graphs using Plotly and new class is comes from plotly
+        Plotly.newPlot("Chart1", graph1, {});
+        Plotly.newPlot("Chart2", graph2, {});
+        Plotly.newPlot("Chart3", graph3, {});
+        Plotly.newPlot("Chart4", graph4, {});
+        Plotly.newPlot("Chart5", graph5, {});
+    </script>
 
 
 
 </body>
 
 </html>
+
+
+<!-- {% if kde_age %}
+            <img src="{{ kde_age }}" alt="Generated Graph">
+            {% endif %} -->
+<!-- {% if season_plot %}
+            <img src="{{ season_plot }}" alt="Generated Graph">
+            {% endif %} -->
+
+<!-- {% if pie_chart_sex %}
+            <img src="{{ pie_chart_sex }}" alt="Generated Graph">
+            {% endif %}  -->
+<!-- 
+            {% if height_kde_plot %}
+            <img src="{{ height_kde_plot }}" alt="Generated Graph">
+            {% endif %} -->

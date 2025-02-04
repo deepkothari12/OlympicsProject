@@ -134,3 +134,30 @@ header h1 {
     margin-bottom: 20px;
     margin-left : 79px;
 }
+
+#Cahrt1{
+    margin-left: 75%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    
+}
+
+#Chart2{
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.All_container{
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.graph1_contaner{
+    flex: 1;
+    max-width: 60%;
+}
+.graph1_text {
+    flex: 1;               /* Takes remaining width */
+    max-width: 40%;
+    text-align: justify;   /* Makes text look cleaner */
+    font-size: 16px;
+    color: white;
+}
